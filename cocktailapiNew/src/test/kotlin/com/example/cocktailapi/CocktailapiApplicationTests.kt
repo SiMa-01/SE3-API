@@ -1,10 +1,10 @@
-package com.example.SE3Api
+package com.example.cocktailapi
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class Se3ApiApplicationTests {
+class CocktailapiApplicationTests {
 
 	@Test
 	fun contextLoads() {
