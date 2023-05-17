@@ -9,8 +9,6 @@ import org.springframework.data.mongodb.core.query.Query
 
 
 import org.springframework.data.repository.findByIdOrNull
-
-
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -36,18 +34,18 @@ class CocktailController (private val cocktailRepository: CocktailRepository) {
     fun getCocktailById(@PathVariable id: String): ResponseEntity<Cocktail>{
         return ResponseEntity.ok(cocktailRepository.findByIdOrNull(id))
     }
-/*
+
     @GetMapping("/taste/{taste}")
     fun getCocktailByIngredient(@PathVariable taste: String): ResponseEntity<List<Cocktail>> {
-        //cocktailRepository.findByAlcoholic(taste)
+        return ResponseEntity.ok(cocktailRepository.findByAlcoholic(taste))
         // {
         //val matcher = ExampleMatcher.matching()
          //   .withMatcher("alcoholic", ExampleMatcher.GenericPropertyMatchers.startsWith().ignoreCase())
         //val example = Example.of(Cocktail(alcoholic = false), matcher)
-        var query = Query();
-        query.addCriteria(Criteria.where("taste").regex("^S"))
-        return ResponseEntity.ok(cocktailRepository.findBy(query))
+        //var query = Query();
+        //query.addCriteria(Criteria.where("taste").regex("^S"))
+        //return ResponseEntity.ok(cocktailRepository.findBy(query))
     }
-*/
+
 
 }
