@@ -1,17 +1,5 @@
 package com.example.cocktailapi.datascource.mongodb
-/*
-import org.springframework.beans.factory.annotation.Value
-import org.springframework.context.annotation.Configuration
 
-@Configuration
-class MongoConfig(
-    @Value("\${spring.data.mongodb.uri}")
-    private val mongoUri: String
-) {
-    fun getMongoUri(): String {
-        return mongoUri
-    }
-}*/
 import com.mongodb.ConnectionString
 import com.mongodb.MongoClientSettings
 import com.mongodb.client.MongoClients
