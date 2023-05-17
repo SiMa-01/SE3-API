@@ -52,4 +52,10 @@ class CocktailController (private val cocktailRepository: CocktailRepository) {
     fun getCocktailByDifficulty(@PathVariable difficulty: String): ResponseEntity<List<Cocktail>> {
         return ResponseEntity.ok(cocktailRepository.findByDifficulty(difficulty))
     }
+
+    @PostMapping("/add")
+    fun createCocktail(@RequestBody cocktail: Cocktail){
+        val savedCocktail = cocktailRepository.save(cocktail)
+    }
+
 }
