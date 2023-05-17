@@ -7,5 +7,19 @@ import org.springframework.data.mongodb.repository.Query
 
 interface CocktailRepository: MongoRepository<Cocktail, String> {
  @Query("{'taste': ?0}")
- fun findByAlcoholic(taste: String): List<Cocktail>
+ fun findByTaste(taste: String): List<Cocktail>
+
+ @Query("{'name': ?0}")
+ fun findByName(name: String): List<Cocktail>
+
+ @Query("{'ingredients': {'\$all': [?0]}}")
+ //@Query("{'ingredients':{ '\$elemMatch': { '\$eq': ?0 }}}")
+ fun findByIngredient(ingredient: String): List<Cocktail>?
+
+ @Query("{'alcoholic': ?0}")
+ fun findByAlcoholic(alcoholic: Boolean): List<Cocktail>
+
+ @Query("{'difficulty': ?0}")
+ fun findByDifficulty(difficulty: String): List<Cocktail>
+
 }

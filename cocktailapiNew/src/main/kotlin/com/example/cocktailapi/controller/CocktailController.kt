@@ -29,8 +29,27 @@ class CocktailController (private val cocktailRepository: CocktailRepository) {
         return ResponseEntity.ok(cocktailRepository.findByIdOrNull(id))
     }
 
+    @GetMapping("/name/{name}")
+    fun getCocktailByName(@PathVariable name: String): ResponseEntity<List<Cocktail>> {
+        return ResponseEntity.ok(cocktailRepository.findByName(name))
+    }
     @GetMapping("/taste/{taste}")
-    fun getCocktailByIngredient(@PathVariable taste: String): ResponseEntity<List<Cocktail>> {
-        return ResponseEntity.ok(cocktailRepository.findByAlcoholic(taste))
+    fun getCocktailByTaste(@PathVariable taste: String): ResponseEntity<List<Cocktail>> {
+        return ResponseEntity.ok(cocktailRepository.findByTaste(taste))
+    }
+
+    @GetMapping("/alcoholic/{alcoholic}")
+    fun getCocktailByAlcoholic(@PathVariable alcoholic: Boolean): ResponseEntity<List<Cocktail>> {
+        return ResponseEntity.ok(cocktailRepository.findByAlcoholic(alcoholic))
+    }
+
+    @GetMapping("/ingredient/{ingredient}")
+    fun getCocktailByIngredient(@PathVariable ingredient: String): ResponseEntity<List<Cocktail>> {
+        return ResponseEntity.ok(cocktailRepository.findByIngredient(ingredient))
+    }
+
+    @GetMapping("/difficulty/{difficulty}")
+    fun getCocktailByDifficulty(@PathVariable difficulty: String): ResponseEntity<List<Cocktail>> {
+        return ResponseEntity.ok(cocktailRepository.findByDifficulty(difficulty))
     }
 }
