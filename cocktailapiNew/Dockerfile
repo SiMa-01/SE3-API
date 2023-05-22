@@ -1,4 +1,5 @@
 FROM openjdk:17
+#RUN ./gradlew build
 ADD build/libs/cocktailapi-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
@@ -16,7 +17,7 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 #COPY src ./src
 
 # Bauen Sie die Anwendung mit Gradle
-#RUN ./gradlew build
+
 
 # Kopieren Sie das Spring Boot JAR-Paket in den Container
 #COPY build/libs/cocktailapi-0.0.1-SNAPSHOT-plain.jar app.jar
