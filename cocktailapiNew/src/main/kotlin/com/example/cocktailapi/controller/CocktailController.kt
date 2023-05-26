@@ -1,7 +1,7 @@
 package com.example.cocktailapi.controller
 
 import com.example.cocktailapi.datascource.dto.Cocktail
-import com.example.cocktailapi.datascource.mongodb.CocktailRepository
+import com.example.cocktailapi.datascource.cocktail.CocktailRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -57,5 +57,4 @@ class CocktailController (private val cocktailRepository: CocktailRepository) {
     fun createCocktail(@RequestBody cocktail: Cocktail){
         val savedCocktail = cocktailRepository.save(cocktail)
     }
-
 }

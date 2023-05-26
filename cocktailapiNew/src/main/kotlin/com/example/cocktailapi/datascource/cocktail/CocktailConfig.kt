@@ -1,4 +1,4 @@
-package com.example.cocktailapi.datascource.mongodb
+package com.example.cocktailapi.datascource.cocktail
 
 import com.mongodb.ConnectionString
 import com.mongodb.MongoClientSettings
@@ -25,7 +25,7 @@ class MongoConfig : AbstractMongoClientConfiguration() {
     }
 
     @Bean
-    override fun mongoTemplate(databaseFactory: MongoDatabaseFactory, converter: MappingMongoConverter): MongoTemplate {
+    override fun mongoTemplate (databaseFactory: MongoDatabaseFactory, converter: MappingMongoConverter): MongoTemplate {
         return MongoTemplate(MongoClients.create(mongoClientSettings()), "mixnfix")
     }
 }

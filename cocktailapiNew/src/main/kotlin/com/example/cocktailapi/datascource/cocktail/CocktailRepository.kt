@@ -1,4 +1,4 @@
-package com.example.cocktailapi.datascource.mongodb
+package com.example.cocktailapi.datascource.cocktail
 
 
 import com.example.cocktailapi.datascource.dto.Cocktail
@@ -13,7 +13,6 @@ interface CocktailRepository: MongoRepository<Cocktail, String> {
  fun findByName(name: String): List<Cocktail>
 
  @Query("{'ingredients': {'\$all': [?0]}}")
- //@Query("{'ingredients':{ '\$elemMatch': { '\$eq': ?0 }}}")
  fun findByIngredient(ingredient: String): List<Cocktail>?
 
  @Query("{'alcoholic': ?0}")
