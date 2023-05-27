@@ -2,6 +2,9 @@ package com.example.cocktailapi.controller
 
 import com.example.cocktailapi.datascource.dto.Cocktail
 import com.example.cocktailapi.datascource.cocktail.CocktailRepository
+import com.example.cocktailapi.datascource.cocktail.CocktailService
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -9,7 +12,7 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/cocktails")
-class CocktailController (private val cocktailRepository: CocktailRepository) {
+class CocktailController (private val cocktailRepository: CocktailRepository, private val cocktailService: CocktailService) {
 
     @ExceptionHandler(NoSuchElementException::class)
     fun handleNotFound(e: NoSuchElementException): ResponseEntity<String> =
@@ -56,5 +59,17 @@ class CocktailController (private val cocktailRepository: CocktailRepository) {
     @PostMapping("/add")
     fun createCocktail(@RequestBody cocktail: Cocktail){
         val savedCocktail = cocktailRepository.save(cocktail)
+    }
+    @GetMapping("/allingredients/")
+    fun getDistinctIngredients(): ResponseEntity<List<String>> {
+        val distinctStrings = cocktailService.getDistinctIngredients()
+
+        val ingredients = distinctStrings.map { json ->
+            val startIndex = json.indexOf('[')
+            val endIndex = json.indexOf(']')
+            val ingredient = json.substring(startIndex + 2, endIndex - 1)
+            ingredient
+        }
+        return ResponseEntity.ok(ingredients)
     }
 }
