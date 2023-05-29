@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.data.mongodb.core.convert.MappingMongoConverter
 
 @Configuration
-class MongoConfig : AbstractMongoClientConfiguration() {
+class MonoConfig : AbstractMongoClientConfiguration() {
 
     override fun getDatabaseName(): String {
         return "mixnfix"
