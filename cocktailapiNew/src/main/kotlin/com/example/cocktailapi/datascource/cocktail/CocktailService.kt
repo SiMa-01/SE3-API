@@ -38,12 +38,12 @@ class CocktailService(private val mongoTemplate: MongoTemplate) {
         if (!taste.isNullOrBlank()) {
             query.addCriteria(Criteria.where("taste").`is`(taste))
         }
-        //Gib alle Cocktails zurück, die mindestens einer der Zutaten haben
+        //Gib alle Cocktails zurück, die mindestens einer der Zutaten haben.
         /*
         if(!ingredients.isNullOrEmpty()){
             query.addCriteria(Criteria.where("ingredients").`in`(ingredients))
         }*/
-        //Gib alle Cocktails zurück, die alle der Zutaten enthalten
+        //Gib alle Cocktails zurück, die alle der Zutaten enthalten.
         if(!ingredients.isNullOrEmpty()){
             query.addCriteria(Criteria.where("ingredients").all(ingredients))
         }
