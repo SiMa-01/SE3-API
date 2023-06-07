@@ -1,24 +1,26 @@
 package com.example.cocktailapi.datascource.cocktail
 
 import com.example.cocktailapi.datascource.dto.Cocktail
+import org.springframework.data.domain.Sort
 import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.data.mongodb.core.aggregation.Aggregation
 import org.springframework.data.mongodb.core.query.Criteria
 import org.springframework.data.mongodb.core.query.Query
 import org.springframework.stereotype.Service
 
+
 @Service
 class CocktailService(private val mongoTemplate: MongoTemplate) {
 
     fun getIngredients(ingredient: String?): List<String> {
         val regex = "^(?i)${ingredient?:""}.*(?-i)"
-        print(regex)
         val unwindStage = Aggregation.unwind("ingredients")
         val groupStage = Aggregation.group("ingredients").addToSet("ingredients").`as`("distinctStrings")
         val matchStage = Aggregation.match(Criteria.where("distinctStrings").regex(regex))
         val projectStage = Aggregation.project().and("distinctStrings").`as`("distinctStrings")
+        val sortStage = Aggregation.sort(Sort.Direction.ASC, "distinctStrings")
 
-        val pipeline = Aggregation.newAggregation(unwindStage, groupStage, matchStage, projectStage)
+        val pipeline = Aggregation.newAggregation(unwindStage, groupStage, matchStage, projectStage, sortStage)
 
         val aggregationResults = mongoTemplate.aggregate(pipeline, "cocktail", String::class.java)
         return aggregationResults.toList()
@@ -27,10 +29,10 @@ class CocktailService(private val mongoTemplate: MongoTemplate) {
     fun findCocktail(id: String?, name: String?, taste:String?, ingredients: List<String>?, alcoholic: Boolean?, difficulty: String?): List<Cocktail>{
         val query = Query()
 
-        if (!id.isNullOrBlank()) {
-            query.addCriteria(Criteria.where("_id").`is`(id))
+        /*if (!id.isNullOrBlank()) {
+            query.addCriteria(Criteria.where("_id").`is`(ObjectId(id)))
         }
-
+*/
         if (!name.isNullOrBlank()) {
             query.addCriteria(Criteria.where("name").`is`(name))
         }
@@ -38,12 +40,7 @@ class CocktailService(private val mongoTemplate: MongoTemplate) {
         if (!taste.isNullOrBlank()) {
             query.addCriteria(Criteria.where("taste").`is`(taste))
         }
-        //Gib alle Cocktails zurück, die mindestens einer der Zutaten haben.
-        /*
-        if(!ingredients.isNullOrEmpty()){
-            query.addCriteria(Criteria.where("ingredients").`in`(ingredients))
-        }*/
-        //Gib alle Cocktails zurück, die alle der Zutaten enthalten.
+
         if(!ingredients.isNullOrEmpty()){
             query.addCriteria(Criteria.where("ingredients").all(ingredients))
         }
@@ -56,5 +53,17 @@ class CocktailService(private val mongoTemplate: MongoTemplate) {
         }
 
         return mongoTemplate.find(query, Cocktail::class.java)
+    }
+
+    fun getTastes(): List<String> {
+        val unwindStage = Aggregation.unwind("taste")
+        val groupStage = Aggregation.group("taste").addToSet("taste").`as`("distinctStrings")
+        val projectStage = Aggregation.project().and("distinctStrings").`as`("distinctStrings")
+        val sortStage = Aggregation.sort(Sort.Direction.ASC, "distinctStrings")
+
+        val pipeline = Aggregation.newAggregation(unwindStage, groupStage, projectStage, sortStage)
+
+        val aggregationResults = mongoTemplate.aggregate(pipeline, "cocktail", String::class.java)
+        return aggregationResults.toList()
     }
 }
