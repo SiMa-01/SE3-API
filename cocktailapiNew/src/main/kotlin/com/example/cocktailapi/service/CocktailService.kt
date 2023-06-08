@@ -1,6 +1,6 @@
-package com.example.cocktailapi.datascource.cocktail
+package com.example.cocktailapi.service
 
-import com.example.cocktailapi.datascource.dto.Cocktail
+import com.example.cocktailapi.dto.Cocktail
 import org.springframework.data.domain.Sort
 import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.data.mongodb.core.aggregation.Aggregation
@@ -29,10 +29,6 @@ class CocktailService(private val mongoTemplate: MongoTemplate) {
     fun findCocktail(id: String?, name: String?, taste:String?, ingredients: List<String>?, alcoholic: Boolean?, difficulty: String?): List<Cocktail>{
         val query = Query()
 
-        /*if (!id.isNullOrBlank()) {
-            query.addCriteria(Criteria.where("_id").`is`(ObjectId(id)))
-        }
-*/
         if (!name.isNullOrBlank()) {
             query.addCriteria(Criteria.where("name").`is`(name))
         }

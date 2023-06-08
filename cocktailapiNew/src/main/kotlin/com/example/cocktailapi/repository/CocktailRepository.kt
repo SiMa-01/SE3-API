@@ -1,7 +1,7 @@
-package com.example.cocktailapi.datascource.cocktail
+package com.example.cocktailapi.repository
 
 
-import com.example.cocktailapi.datascource.dto.Cocktail
+import com.example.cocktailapi.dto.Cocktail
 import org.springframework.data.mongodb.repository.MongoRepository
 
 interface CocktailRepository: MongoRepository<Cocktail, String> {

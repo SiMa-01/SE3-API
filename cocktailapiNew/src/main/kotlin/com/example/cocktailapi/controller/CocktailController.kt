@@ -1,8 +1,8 @@
 package com.example.cocktailapi.controller
 
-import com.example.cocktailapi.datascource.dto.Cocktail
-import com.example.cocktailapi.datascource.cocktail.CocktailRepository
-import com.example.cocktailapi.datascource.cocktail.CocktailService
+import com.example.cocktailapi.dto.Cocktail
+import com.example.cocktailapi.repository.CocktailRepository
+import com.example.cocktailapi.service.CocktailService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -19,7 +19,6 @@ class CocktailController (private val cocktailRepository: CocktailRepository, pr
     fun handleBadRequest(e: IllegalArgumentException): ResponseEntity<String> =
         ResponseEntity(e.message, HttpStatus.BAD_REQUEST)
 
-
     @GetMapping("/cocktails")
     fun getCocktails(@RequestParam(required = false) id: String?,
                      @RequestParam(required = false) name: String?,
@@ -33,9 +32,16 @@ class CocktailController (private val cocktailRepository: CocktailRepository, pr
         return ResponseEntity.ok(cocktailService.findCocktail(id, name, taste, ingredients, alcoholic, difficulty))
     }
 
-    @PostMapping("cocktails/add")
-    fun createCocktail(@RequestBody cocktail: Cocktail){
+    @PostMapping("/cocktails")
+    fun createCocktail(@RequestBody cocktail: Cocktail): ResponseEntity<Cocktail>{
         val savedCocktail = cocktailRepository.save(cocktail)
+        return ResponseEntity.ok(savedCocktail)
+    }
+
+    @DeleteMapping("/cocktails")
+    fun deleteCocktail(@RequestParam id: String): ResponseEntity<Unit>{
+        cocktailRepository.deleteById(id)
+        return ResponseEntity.noContent().build()
     }
 
     @GetMapping("/ingredients")
