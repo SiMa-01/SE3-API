@@ -3,6 +3,9 @@ package com.example.cocktailapi.controller
 import com.example.cocktailapi.dto.Cocktail
 import com.example.cocktailapi.repository.CocktailRepository
 import com.example.cocktailapi.service.CocktailService
+import io.swagger.v3.oas.annotations.media.Content
+import io.swagger.v3.oas.annotations.responses.ApiResponses
+import io.swagger.v3.oas.annotations.responses.ApiResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -19,6 +22,15 @@ class CocktailController (private val cocktailRepository: CocktailRepository, pr
     fun handleBadRequest(e: IllegalArgumentException): ResponseEntity<String> =
         ResponseEntity(e.message, HttpStatus.BAD_REQUEST)
 
+    @ApiResponses(
+        value = [
+            ApiResponse(
+                responseCode = "200",
+                description = "all good",
+                content = [Content(mediaType = "application")]
+            )
+        ]
+    )
     @GetMapping("/cocktails")
     fun getCocktails(@RequestParam(required = false) id: String?,
                      @RequestParam(required = false) name: String?,
