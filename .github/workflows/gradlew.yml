@@ -30,4 +30,4 @@ jobs:
       - name: Build with Gradle
         run: |
           ls -l
-          ./gradlew build
+          ./cocktailapiNew/gradlew build
