@@ -29,5 +29,5 @@ jobs:
           distribution: 'temurin'
       - name: Build with Gradle
         run: |
+          ls -l
           ./gradlew build
-
