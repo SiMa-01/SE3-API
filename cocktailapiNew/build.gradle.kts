@@ -25,6 +25,12 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	testImplementation("org.mockito:mockito-core")
+	testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
+	testImplementation ("org.junit.jupiter:junit-jupiter-api:5.7.0")
+	testImplementation ("org.junit.jupiter:junit-jupiter-engine:5.7.0")
+	testImplementation ("org.mockito:mockito-core:3.6.0")
+	testImplementation ("org.springframework.boot:spring-boot-starter-data-mongodb")
+
 	testImplementation("com.h2database:h2")
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
 }
