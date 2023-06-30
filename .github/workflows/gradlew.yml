@@ -25,3 +25,6 @@ jobs:
 
     - name: Build with Gradle
       run: ./cocktailapiNew/gradlew -p cocktailapiNew build
+      
+    - name: Run Tests with Gradle
+      run: ./cocktailapiNew/gradlew -p cocktailapiNew test
