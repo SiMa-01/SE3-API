@@ -48,7 +48,7 @@ class CocktailServiceTest {
     @Test
     fun testFindCocktail() {
         // Given
-        val cocktail = Cocktail(null, "Mojito", arrayOf("Mint", "Sugar", "Lime"), "easy", true, "bad", "Gebe alle Zutaten in ein Glas") // Define your Cocktail data class if not defined
+        val cocktail = Cocktail(null, "Mojito", arrayOf("Mint", "Sugar", "Lime"), "easy", true, "bad", "Gebe alle Zutaten in ein Glas")
 
         // Mocking MongoTemplate
         whenever(mongoTemplate.find(argThat<Query> { it ->
@@ -75,7 +75,7 @@ class CocktailServiceTest {
     fun testGetTastes() {
 
         // Mocking des MongoDB Templates
-        val expectedResults = listOf("Lime Juice", "Lime Wedges")
+        val expectedResults = listOf("sweet", "strong")
         val aggregationResults = AggregationResults(expectedResults, Document())
         `when`(mongoTemplate.aggregate(any(Aggregation::class.java), eq("cocktail"), eq(String::class.java)))
                 .thenReturn(aggregationResults)
@@ -84,7 +84,6 @@ class CocktailServiceTest {
         val result = cocktailService.getTastes()
         // Then
         assertEquals(expectedResults, result)
-
 
     }
 }
